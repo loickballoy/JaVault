@@ -1,0 +1,10 @@
+unnamed package
+fr.epita.assistants
+fr.epita.assistants.myide.domain.entity
+fr.epita.assistants.myide.domain.entity.any
+fr.epita.assistants.myide.domain.entity.git
+fr.epita.assistants.myide.domain.entity.maven
+fr.epita.assistants.myide.domain.service
+fr.epita.assistants.myide.front
+fr.epita.assistants.utils
+fr.epita.assistants.utils.front
