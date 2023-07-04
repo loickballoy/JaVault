@@ -1,0 +1,23 @@
+.keyword {
+    -fx-fill: #0000FF;
+}
+
+.type {
+    -fx-fill: #FF00F0;
+}
+
+.comment{
+    -fx-fill: #00FF00;
+}
+
+.annotation{
+    -fx-fill: #ffdd00;
+}
+
+.strings{
+    -fx-fill: orange;
+}
+
+.default-code {
+    -fx-fill: white; /* Default text color */
+}

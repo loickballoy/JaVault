@@ -1,0 +1,59 @@
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] -----------------------< com.example:my-project >-----------------------
+[INFO] Building my-project 1.0.0
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- maven-dependency-plugin:2.8:tree (default-cli) @ my-project ---
+[INFO] com.example:my-project:jar:1.0.0
+[INFO] \- org.apache.maven.plugins:maven-jar-plugin:jar:3.2.2:compile
+[INFO]    +- org.apache.maven:maven-plugin-api:jar:3.1.0:compile
+[INFO]    |  +- org.apache.maven:maven-model:jar:3.1.0:compile
+[INFO]    |  \- org.eclipse.sisu:org.eclipse.sisu.plexus:jar:0.0.0.M2a:compile
+[INFO]    |     +- javax.enterprise:cdi-api:jar:1.0:compile
+[INFO]    |     |  +- javax.annotation:jsr250-api:jar:1.0:compile
+[INFO]    |     |  \- javax.inject:javax.inject:jar:1:compile
+[INFO]    |     +- com.google.guava:guava:jar:10.0.1:compile
+[INFO]    |     |  \- com.google.code.findbugs:jsr305:jar:1.3.9:compile
+[INFO]    |     +- org.sonatype.sisu:sisu-guice:jar:no_aop:3.1.0:compile
+[INFO]    |     |  \- aopalliance:aopalliance:jar:1.0:compile
+[INFO]    |     \- org.eclipse.sisu:org.eclipse.sisu.inject:jar:0.0.0.M2a:compile
+[INFO]    |        \- asm:asm:jar:3.3.1:compile
+[INFO]    +- org.apache.maven:maven-core:jar:3.1.0:compile
+[INFO]    |  +- org.apache.maven:maven-settings:jar:3.1.0:compile
+[INFO]    |  +- org.apache.maven:maven-settings-builder:jar:3.1.0:compile
+[INFO]    |  +- org.apache.maven:maven-repository-metadata:jar:3.1.0:compile
+[INFO]    |  +- org.apache.maven:maven-model-builder:jar:3.1.0:compile
+[INFO]    |  +- org.apache.maven:maven-aether-provider:jar:3.1.0:compile
+[INFO]    |  |  \- org.eclipse.aether:aether-spi:jar:0.9.0.M2:compile
+[INFO]    |  +- org.eclipse.aether:aether-impl:jar:0.9.0.M2:compile
+[INFO]    |  +- org.eclipse.aether:aether-api:jar:0.9.0.M2:compile
+[INFO]    |  +- org.eclipse.aether:aether-util:jar:0.9.0.M2:compile
+[INFO]    |  +- org.codehaus.plexus:plexus-interpolation:jar:1.16:compile
+[INFO]    |  +- org.codehaus.plexus:plexus-classworlds:jar:2.4.2:compile
+[INFO]    |  +- org.codehaus.plexus:plexus-component-annotations:jar:1.5.5:compile
+[INFO]    |  \- org.sonatype.plexus:plexus-sec-dispatcher:jar:1.3:compile
+[INFO]    |     \- org.sonatype.plexus:plexus-cipher:jar:1.4:compile
+[INFO]    +- org.apache.maven:maven-artifact:jar:3.1.0:compile
+[INFO]    +- org.apache.maven.shared:file-management:jar:3.0.0:compile
+[INFO]    |  \- org.apache.maven.shared:maven-shared-io:jar:3.0.0:compile
+[INFO]    |     +- org.apache.maven:maven-compat:jar:3.0:compile
+[INFO]    |     |  \- org.sonatype.sisu:sisu-inject-plexus:jar:1.4.2:compile
+[INFO]    |     |     \- org.sonatype.sisu:sisu-inject-bean:jar:1.4.2:compile
+[INFO]    |     |        \- org.sonatype.sisu:sisu-guice:jar:noaop:2.1.7:compile
+[INFO]    |     \- org.apache.maven.wagon:wagon-provider-api:jar:2.10:compile
+[INFO]    +- org.apache.maven:maven-archiver:jar:3.5.2:compile
+[INFO]    |  +- commons-io:commons-io:jar:2.6:compile
+[INFO]    |  +- org.apache.commons:commons-compress:jar:1.20:compile
+[INFO]    |  \- org.codehaus.plexus:plexus-archiver:jar:4.2.7:compile
+[INFO]    |     +- org.codehaus.plexus:plexus-io:jar:3.2.0:compile
+[INFO]    |     +- org.iq80.snappy:snappy:jar:0.4:compile
+[INFO]    |     \- org.tukaani:xz:jar:1.9:runtime
+[INFO]    +- org.apache.maven.shared:maven-shared-utils:jar:3.3.4:compile
+[INFO]    \- org.codehaus.plexus:plexus-utils:jar:3.3.1:compile
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  0.768 s
+[INFO] Finished at: 2023-06-14T13:53:49+02:00
+[INFO] ------------------------------------------------------------------------

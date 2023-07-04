@@ -1,0 +1,196 @@
+.root {
+    -fx-background-color: #1e1e1e;
+    -fx-text-fill: white;
+}
+
+.tree-cell {
+    -fx-text-fill: white;
+    -fx-background-color: #000000;
+}
+
+.tree-cell > .arrow-button,
+.tree-cell > .disclosure-node {
+    -fx-background-color: #FF0000; /* Red color */
+    -fx-shape: "M0,0 L10,5 L0,10 Z"; /* Triangle shape */
+    -fx-padding: 5; /* Padding around the button */
+}
+
+.tool-bar {
+    -fx-background-color: #333333;
+}
+
+.tab-pane {
+    -fx-background-color: #1e1e1e;
+    -fx-text-fill: white;
+    -fx-fill: white;
+    -fx-tab-min-width: 100px;
+    -fx-tab-max-width: 150px;
+    -fx-tab-min-height: 32px;
+    -fx-tab-max-height: 32px;
+}
+
+.tab-pane .tab-header-background {
+    -fx-background-color: #333333;
+}
+
+.tab-pane .tab-selected .tab-label {
+    -fx-text-fill: white;
+}
+
+.tab-pane .tab:hover {
+    -fx-background-color: #3a80c1;
+}
+
+
+
+.text-area,
+.text-field,
+.text-input {
+    -fx-font-family: 'Courier New', monospace;
+    -fx-background-color: #2d2d2d;
+    -fx-text-fill: #CCCCCC;
+    -fx-prompt-text-fill: #808080;
+}
+
+.text-area .scroll-pane {
+    -fx-background: #2d2d2d;
+    -fx-control-inner-background: #2d2d2d;
+    -fx-highlight-fill: #333333;
+    -fx-highlight-text-fill: white;
+    -fx-line-highlight-fill: #333333;
+    -fx-line-highlight-text-fill: white;
+    -fx-text-box-border: transparent;
+}
+
+.text-area .line-number {
+    -fx-font-size: 10px;
+    -fx-fill: #FFFFFF;
+}
+
+.tab-pane .tab .label {
+    -fx-padding: 4px 8px;
+}
+
+.tab-pane .tab .graphic {
+    -fx-padding: 2px;
+}
+
+.tab-pane .tab:hover .label {
+    -fx-text-fill: white;
+}
+
+.tab-pane .tab:hover .graphic {
+    -fx-fill: white;
+}
+
+.tab-pane .tab:selected .label {
+    -fx-text-fill: white;
+}
+
+.tab-pane .tab:selected .graphic {
+    -fx-fill: white;
+}
+
+.text-area:focused,
+.text-field:focused,
+.text-input:focused {
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+    -fx-control-inner-border: transparent;
+    -fx-background-insets: 0;
+}
+
+.text-area:focused .scroll-pane,
+.text-field:focused,
+.text-input:focused {
+    -fx-background-insets: 0;
+}
+
+.text-area .scroll-pane .viewport {
+    -fx-background-color: #2d2d2d;
+}
+
+.text-area .scroll-pane .content {
+    -fx-background-color: #2d2d2d;
+}
+
+.text-area .scroll-pane .viewport .text {
+    -fx-fill: white;
+}
+
+.text-area .scroll-pane .viewport .text .caret {
+    -fx-background-color: white;
+    -fx-border-color: white;
+}
+
+.text-area .scroll-pane .viewport .text .selection {
+    -fx-fill: white;
+    -fx-background-color: #3a80c1;
+}
+
+.line-numbers {
+    -fx-font-family: monospace;
+    -fx-text-fill: #DDDDDD;
+    -fx-fill: #DDDDDD;
+    -fx-font-size: 25px;
+    -fx-pref-width: 25;
+    -fx-pref-height: 5000;
+}
+
+.code-area {
+    -fx-font-family: monospace;
+    -fx-font-size: 14px;
+    -fx-fill: white;
+    -fx-background-color: #1e1e1e;
+    -fx-caret-color: white;
+}
+
+/* Example styling for buttons */
+.button {
+    -fx-background-color: #0e639c;
+    -fx-text-fill: white;
+    -fx-padding: 6px 12px;
+}
+
+.suggest {
+    -fx-background-color: #0e639c;
+    -fx-text-fill: white;
+}
+
+.tab {
+    -fx-background-color: #0e639c;
+    -fx-text-fill: white;
+    -fx-padding: 6px 12px;
+}
+
+/* Track */
+.scroll-bar {
+    -fx-background-color: transparent;
+    -fx-pref-width: 15px;
+    -fx-pref-height: 15px;
+}
+
+/* Thumb */
+.scroll-bar .thumb {
+    -fx-background-color: #535353;
+}
+
+/* Hovered Thumb */
+.scroll-bar .thumb:hover {
+    -fx-background-color: #737373;
+}
+
+/* Pressed Thumb */
+.scroll-bar .thumb:pressed {
+    -fx-background-color: #969696;
+}
+
+/* Decrease Button */
+.scroll-bar .increment-button {
+    -fx-background-color: transparent;
+}
+
+/* Increase Button */
+.scroll-bar .decrement-button {
+    -fx-background-color: transparent;
+}

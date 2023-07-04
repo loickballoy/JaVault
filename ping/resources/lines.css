@@ -1,0 +1,28 @@
+.keyword {
+    -fx-fill: #0000FF;
+    -fx-caret-color: white;
+}
+
+.type {
+    -fx-fill: #FF00F0;
+    -fx-caret-color: white;
+}
+
+.comment{
+    -fx-fill: #00FF00;
+    -fx-caret-color: white;
+}
+
+.annotation{
+    -fx-fill: #ffdd00;
+    -fx-caret-color: white;
+}
+
+.strings{
+    -fx-fill: orange;
+}
+
+.default-code {
+    -fx-fill: white; /* Default text color */
+    -fx-caret-color: white;
+}
