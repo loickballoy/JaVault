@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <!-- 引入样式 -->
+    <link rel="stylesheet" href="style/style.css">
+
+    <style type="text/css" media="print">
+        .noprint {
+            display: none
+        }
+        
+        .print {
+            display: block !important;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <header class="el-header noprint">
+            <div class="icon-btns">
+                <i class="icon-list" @click="changeLeftMenu"></i>
+                <i class="icon-skip_previous" v-bind:class="{'disabled': currentPage == 1}" @click="changeCurrentPage('first')"></i>
+                <i class="icon-play_arrow prev-icon" v-bind:class="{'disabled': currentPage == 1}" @click="changeCurrentPage('prev')"></i>
+                <i class="icon-play_arrow" v-bind:class="{'disabled': currentPage == pageNum}" @click="changeCurrentPage('next')"></i>
+                <i class="icon-skip_next" v-bind:class="{'disabled': currentPage == pageNum}" @click="changeCurrentPage('last')"></i>
+                <select v-model="currentPage">
+                    <option v-for="page in pageNum" v-bind:value="page">page {{ page }}</option>
+                </select>
+                <i class="icon-zoom_in" v-bind:class="{'disabled': zoomNum == 2}" @click="modifyZoom('in')"></i>
+                <select v-model="zoomNum">
+                    <option value="0.5">50%</option>
+                    <option value="0.6">60%</option>
+                    <option value="0.7">70%</option>
+                    <option value="0.8">80%</option>
+                    <option value="0.9">90%</option>
+                    <option value="1.0" selected>100%</option>
+                    <option value="1.1">110%</option>
+                    <option value="1.2">120%</option>
+                    <option value="1.3">130%</option>
+                    <option value="1.4">140%</option>
+                    <option value="1.5">150%</option>
+                    <option value="1.6">160%</option>
+                    <option value="1.7">170%</option>
+                    <option value="1.8">180%</option>
+                    <option value="1.9">190%</option>
+                    <option value="2.0">200%</option>
+                </select>
+                <i class="icon-zoom_out" v-bind:class="{'disabled': zoomNum == 0.5}" @click="modifyZoom('out')"></i>
+                <i class="icon-format_align_left" @click="textAlign = 'left'"></i>
+                <i class="icon-format_align_center" @click="textAlign = 'center'"></i>
+                <i class="icon-format_align_right" @click="textAlign = 'right'"></i>
+                <i class="icon-print" @click="window.print()"></i>
+            </div>
+        </header>
+
+        <aside class="noprint" width="240px" v-show="ifMenuShow">
+            <nav class="tabNav">
+                <ul>
+                    <li v-bind:class="{ 'curr': currentNav == 0 }" @click="currentNav = 0">Page</li>
+                    <li v-bind:class="{ 'curr': currentNav == 1 }" @click="currentNav = 1">Bookmark</li>
+                </ul>
+
+                <div class="clear"></div>
+            </nav>
+
+            <div class="tab-conent scrollbar" v-bind:style="{ height: asideHeight + 'px' }">
+
+            <section v-show="currentNav == 0">
+                <ul class="page-menu">
+                    <li v-for="page in pageNum" v-bind:class="{ 'curr': currentPage == page }" @click="changePage(page)"><i class="icon-file-text2"></i> page {{ page }}</li>
+                </ul>
+            </section>
+
+            <section v-show="currentNav == 1">
+                <ul class="page-menu">
+                    <li v-for="page in pageNum" v-bind:class="{ 'curr': currentPage == page }" @click="changePage(page)"><i class="icon-turned_in_not"></i> Bookmark {{ page }}</li>
+                </ul>
+            </section>
+        </div>
+
+        </aside>
+        <div class="main scrollbar noprint"  v-bind:style="{ height: mainHeight + 'px' }" v-bind:class="{ 'mainLeftM': ifMenuShow, 'aleft': textAlign === 'left','acenter': textAlign === 'center','aright': textAlign === 'right'}">
+            <div class="conent" v-html="pageContent" v-bind:style="zoomStyle"></div>
+
+            <div class="clear"></div>
+        </div>
+
+        <!--专门只为打印的内容-->
+        <div class="conent print" style="display:none" v-html="pageContent"></div>
+    </div>
+</body>
+<!-- 先引入 Vue -->
+<script src="js/vue.min.js"></script>
+<script>
+
+var app = new Vue({
+        el: '#app',
+        data: function() {
+            return {
+                // visible: false,
+                isCollapse: false,
+                currentNav: 0,
+                activeName2: 'first',
+                pageNum: 1, 
+                currentPage: 1,
+                pageContent: '',
+                asideHeight: 300,
+                mainHeight: 300,
+                ifMenuShow: true,
+                zoomNum: '1.0',
+                textAlign: 'left',
+                zoomStyle: {},
+                pageDatas: ['<div style="position:absolute;top:0.000000px;left:0.000000px"><nobr><img height="1056.000000" width="816.000000" src ="bgimg/bg00001.jpg"/></nobr></div><p><span style="font-family:Arial;font-size:24.787100px;font-weight:bold;color:#000000;"><span style="position:absolute;top:364.779633px;left:207.578674px"><nobr>Specifications Document </nobr></span></span></p><p><span style="font-family:Arial;font-size:14.346200px;font-weight:bold;color:#0000FF;"><span style="position:absolute;top:417.248962px;left:371.101318px"><nobr>JaVault </nobr></span></span></p><p><span style="font-family:Arial;font-size:14.346200px;font-style:normal;font-weight:normal;color:#000000;"><span style="position:absolute;top:460.056976px;left:185.903992px"><nobr>How can we design and develop a secure IDE for Java </nobr></span><span style="position:absolute;top:483.967651px;left:197.987991px"><nobr>developers with advanced features for code editing, </nobr></span></span></p><p><span style="font-family:Arial;font-size:14.346200px;font-style:normal;font-weight:normal;color:#000000;"><span style="position:absolute;top:507.878357px;left:229.775986px"><nobr>securing, encrypting, and code verification? </nobr></span></span></p><p><span style="font-family:Arial;font-size:9.962600px;font-style:normal;font-weight:normal;color:#000000;"><span style="position:absolute;top:604.261292px;left:361.743988px"><nobr>Lo¨ıck BALLOY </nobr></span></span></p><p><span style="font-family:Arial;font-size:9.962600px;font-style:normal;font-weight:normal;color:#000000;"><span style="position:absolute;top:620.202637px;left:337.206665px"><nobr>R´ emy DECOURCELLE </nobr></span></span></p><p><span style="font-family:Arial;font-size:9.962600px;font-style:normal;font-weight:normal;color:#000000;"><span style="position:absolute;top:636.142639px;left:351.597321px"><nobr>Hamza OUHMANI </nobr></span></span></p><p><span style="font-family:Arial;font-size:9.962600px;font-style:normal;font-weight:normal;color:#000000;"><span style="position:absolute;top:652.082581px;left:334.946655px"><nobr>Guillaume CHARVOLIN </nobr></span></span></p><p><span style="font-family:Arial;font-size:11.955200px;font-style:normal;font-weight:normal;color:#000000;"><span style="position:absolute;top:885.933411px;left:360.567993px"><nobr>June 23, 2023 </nobr></span></span></p>','<div style="position:absolute;top:0.000000px;left:0.000000px"><nobr><img height="1056.000000" width="816.000000" src ="bgimg/bg00002.jpg"/></nobr></div><p><span style="font-family:Arial;font-size:14.346200px;font-weight:bold;color:#000000;"><span style="position:absolute;top:166.411621px;left:178.357315px"><nobr>1 Introduction </nobr></span></span></p><p><span style="font-family:Arial;font-size:9.962600px;font-style:normal;font-weight:normal;color:#000000;"><span style="position:absolute;top:199.562500px;left:178.357315px"><nobr>The objective of this project is to develop a secure integrated development envi-</nobr></span><span style="position:absolute;top:215.502518px;left:178.357315px"><nobr>ronment (IDE) specifically designed for Java developers, with a strong emphasis </nobr></span><span style="position:absolute;top:231.442551px;left:178.357315px"><nobr>on code security. The IDE will provide advanced features for code editing, se-</nobr></span><span style="position:absolute;top:247.382568px;left:178.357315px"><nobr>curing, encrypting, and code verification. </nobr></span></span></p><p><span style="font-family:Arial;font-size:14.346200px;font-weight:bold;color:#000000;"><span style="position:absolute;top:287.254303px;left:178.357315px"><nobr>2 Key Features </nobr></span></span></p><p><span style="font-family:Arial;font-size:11.955200px;font-weight:bold;color:#000000;"><span style="position:absolute;top:321.217377px;left:178.357315px"><nobr>2.1 Integration of Existing Backend </nobr></span></span></p><p><span style="font-family:宋体;font-size:9.962600px;font-style:normal;font-weight:normal;color:#000000;"><span style="position:absolute;top:344.353363px;left:198.285324px"><nobr>• Integrate the functionalities of the already developed backend, including </nobr></span><span style="position:absolute;top:363.521240px;left:211.566650px"><nobr>Git for version control, Maven for dependency management, and File for </nobr></span><span style="position:absolute;top:379.461273px;left:211.566650px"><nobr>file manipulation. </nobr></span></span></p><p><span style="font-family:Arial;font-size:11.955200px;font-weight:bold;color:#000000;"><span style="position:absolute;top:414.802795px;left:178.357315px"><nobr>2.2 Enhanced Code Editing </nobr></span></span></p><p><span style="font-family:宋体;font-size:9.962600px;font-style:normal;font-weight:normal;color:#000000;"><span style="position:absolute;top:437.937378px;left:198.285324px"><nobr>• Implement code autocompletion feature to speed up the development pro-</nobr></span><span style="position:absolute;top:457.105255px;left:211.566650px"><nobr>cess. </nobr></span></span></p><p><span style="font-family:宋体;font-size:9.962600px;font-style:normal;font-weight:normal;color:#000000;"><span style="position:absolute;top:480.444000px;left:198.285324px"><nobr>• Apply syntax highlighting to improve code readability and comprehension. </nobr></span></span></p><p><span style="font-family:Arial;font-size:9.962600px;font-style:normal;font-weight:normal;color:#000000;"><span style="position:absolute;top:927.627930px;left:404.177338px"><nobr>1 </nobr></span></span></p>','<div style="position:absolute;top:0.000000px;left:0.000000px"><nobr><img height="1056.000000" width="816.000000" src ="bgimg/bg00003.jpg"/></nobr></div><p><span style="font-family:Arial;font-size:11.955200px;font-weight:bold;color:#000000;"><span style="position:absolute;top:418.589447px;left:178.357315px"><nobr>2.3 ”i3lock-like” Security Feature </nobr></span></span></p><p><span style="font-family:宋体;font-size:9.962600px;font-style:normal;font-weight:normal;color:#000000;"><span style="position:absolute;top:441.724030px;left:198.285324px"><nobr>• Allow users to secure/lock the IDE to hide the code and prevent unautho-</nobr></span><span style="position:absolute;top:460.891937px;left:211.566650px"><nobr>rized access. </nobr></span></span></p><p><span style="font-family:宋体;font-size:9.962600px;font-style:normal;font-weight:normal;color:#000000;"><span style="position:absolute;top:484.231995px;left:198.285324px"><nobr>• Implement a secure authentication mechanism to prevent unauthorized </nobr></span><span style="position:absolute;top:503.399902px;left:211.566650px"><nobr>access to the code. </nobr></span></span></p><p><span style="font-family:Arial;font-size:11.955200px;font-weight:bold;color:#000000;"><span style="position:absolute;top:790.456177px;left:178.357315px"><nobr>2.4 Encryption and Decryption of Saved Files </nobr></span></span></p><p><span style="font-family:宋体;font-size:9.962600px;font-style:normal;font-weight:normal;color:#000000;"><span style="position:absolute;top:813.590637px;left:204.705322px"><nobr>• Implement encryption and decryption mechanism for user’s saved code </nobr></span></span></p><p><span style="font-family:Arial;font-size:9.962600px;font-style:normal;font-weight:normal;color:#000000;"><span style="position:absolute;top:832.758606px;left:323.627991px"><nobr>files to ensure their confidentiality. </nobr></span></span></p><p><span style="font-family:Arial;font-size:9.962600px;font-style:normal;font-weight:normal;color:#000000;"><span style="position:absolute;top:927.627930px;left:404.177307px"><nobr>2 </nobr></span></span></p>','<div style="position:absolute;top:0.000000px;left:0.000000px"><nobr><img height="1056.000000" width="816.000000" src ="bgimg/bg00004.jpg"/></nobr></div><p><span style="font-family:Arial;font-size:11.955200px;font-weight:bold;color:#000000;"><span style="position:absolute;top:443.813477px;left:178.357315px"><nobr>2.5 Code Security Verification </nobr></span></span></p><p><span style="font-family:宋体;font-size:9.962600px;font-style:normal;font-weight:normal;color:#000000;"><span style="position:absolute;top:466.948090px;left:198.285324px"><nobr>• If time permits, develop a feature to allow users to check if their code has </nobr></span><span style="position:absolute;top:486.115997px;left:211.566650px"><nobr>any known security vulnerabilities. </nobr></span></span></p><p><span style="font-family:宋体;font-size:9.962600px;font-style:normal;font-weight:normal;color:#000000;"><span style="position:absolute;top:509.456055px;left:213.375977px"><nobr>• Integrate static analysis tools to detect potential vulnerabilities and </nobr></span></span></p><p><span style="font-family:Arial;font-size:9.962600px;font-style:normal;font-weight:normal;color:#000000;"><span style="position:absolute;top:528.623901px;left:326.173279px"><nobr>provide improvement suggestions. </nobr></span></span></p><p><span style="font-family:Arial;font-size:9.962600px;font-style:normal;font-weight:normal;color:#000000;"><span style="position:absolute;top:927.627930px;left:404.177338px"><nobr>3 </nobr></span></span></p>','<p><span style="font-family:Arial;font-size:14.346200px;font-weight:bold;color:#000000;"><span style="position:absolute;top:166.411621px;left:178.357315px"><nobr>3 Goals </nobr></span></span></p><p><span style="font-family:Arial;font-size:11.955200px;font-weight:bold;color:#000000;"><span style="position:absolute;top:200.374680px;left:178.357315px"><nobr>3.1 Antivirus Scanning for User-Loaded Files </nobr></span></span></p><p><span style="font-family:宋体;font-size:9.962600px;font-style:normal;font-weight:normal;color:#000000;"><span style="position:absolute;top:223.509277px;left:198.285324px"><nobr>• If time permits, integrate an antivirus scanning system to scan files loaded </nobr></span><span style="position:absolute;top:242.678467px;left:211.566650px"><nobr>into the IDE to prevent attacks through malicious code injection. </nobr></span></span></p><p><span style="font-family:Arial;font-size:14.346200px;font-weight:bold;color:#000000;"><span style="position:absolute;top:282.548920px;left:178.357315px"><nobr>4 Technical Constraints </nobr></span></span></p><p><span style="font-family:宋体;font-size:9.962600px;font-style:normal;font-weight:normal;color:#000000;"><span style="position:absolute;top:312.471924px;left:198.285324px"><nobr>• The IDE development must be based on Java technology for optimal com-</nobr></span><span style="position:absolute;top:331.641113px;left:211.566650px"><nobr>patibility with the needs of developers working exclusively in Java. </nobr></span></span></p><p><span style="font-family:宋体;font-size:9.962600px;font-style:normal;font-weight:normal;color:#000000;"><span style="position:absolute;top:354.979889px;left:198.285324px"><nobr>• Data encryption and security must adhere to strong and recognized en-</nobr></span><span style="position:absolute;top:374.147797px;left:211.566650px"><nobr>cryption standards to ensure file confidentiality. </nobr></span></span></p><p><span style="font-family:Arial;font-size:14.346200px;font-weight:bold;color:#000000;"><span style="position:absolute;top:414.019470px;left:178.357315px"><nobr>5 Expected Deliverables </nobr></span></span></p><p><span style="font-family:宋体;font-size:9.962600px;font-style:normal;font-weight:normal;color:#000000;"><span style="position:absolute;top:443.942535px;left:198.285324px"><nobr>• A functional IDE with all the above-mentioned features. </nobr></span></span></p><p><span style="font-family:宋体;font-size:9.962600px;font-style:normal;font-weight:normal;color:#000000;"><span style="position:absolute;top:470.509216px;left:198.285324px"><nobr>• Well-structured, documented, and easily maintainable code. </nobr></span></span></p><p><span style="font-family:宋体;font-size:9.962600px;font-style:normal;font-weight:normal;color:#000000;"><span style="position:absolute;top:497.075836px;left:198.285324px"><nobr>• Clear and comprehensive documentation on how to use the IDE and its </nobr></span><span style="position:absolute;top:516.245056px;left:211.566650px"><nobr>features. </nobr></span></span></p><p><span style="font-family:Arial;font-size:14.346200px;font-weight:bold;color:#000000;"><span style="position:absolute;top:556.115479px;left:178.357315px"><nobr>6 Projected Timeline </nobr></span></span></p><p><span style="font-family:Arial;font-size:9.962600px;font-style:normal;font-weight:normal;color:#000000;"><span style="position:absolute;top:589.266357px;left:194.593323px"><nobr>1. Phase 1: Analysis of requirements and design of IDE architecture. </nobr></span></span></p><p><span style="font-family:Arial;font-size:9.962600px;font-style:normal;font-weight:normal;color:#000000;"><span style="position:absolute;top:615.834412px;left:194.593323px"><nobr>2. Phase 2: Implementation of core features. </nobr></span></span></p><p><span style="font-family:Arial;font-size:9.962600px;font-style:normal;font-weight:normal;color:#000000;"><span style="position:absolute;top:642.401062px;left:194.593323px"><nobr>3. Phase 3: Integration of advanced security features. </nobr></span></span></p><p><span style="font-family:Arial;font-size:9.962600px;font-style:normal;font-weight:normal;color:#000000;"><span style="position:absolute;top:668.967651px;left:194.593323px"><nobr>4. Phase 4: Testing, debugging, and optimization. </nobr></span></span></p><p><span style="font-family:Arial;font-size:9.962600px;font-style:normal;font-weight:normal;color:#000000;"><span style="position:absolute;top:695.534363px;left:281.249298px"><nobr>5. Phase 5: Documentation and final delivery. </nobr></span></span></p><p><span style="font-family:Arial;font-size:9.962600px;font-style:normal;font-weight:normal;color:#000000;"><span style="position:absolute;top:927.627686px;left:404.177307px"><nobr>4 </nobr></span></span></p>','<div style="position:absolute;top:0.000000px;left:0.000000px"><nobr><img height="1056.000000" width="816.000000" src ="bgimg/bg00005.jpg"/></nobr></div><p><span style="font-family:Arial;font-size:14.346200px;font-weight:bold;color:#000000;"><span style="position:absolute;top:442.802307px;left:178.357315px"><nobr>7 Helpful Links </nobr></span></span></p><p><span style="font-family:Arial;font-size:9.962600px;font-style:normal;font-weight:normal;color:#000000;"><span style="position:absolute;top:475.953247px;left:178.357315px"><nobr>For more information on the project, please take a look at the following re-</nobr></span><span style="position:absolute;top:491.893219px;left:178.357315px"><nobr>sources: </nobr></span></span></p><p><span style="font-family:宋体;font-size:9.962600px;font-style:normal;font-weight:normal;color:#000000;"><span style="position:absolute;top:517.889343px;left:198.285324px"><nobr>• our IDE’s Documentaion : <a href="https://loickballoy.github.io/JaVault/doc/index.html" target="_blank">https://loickballoy.github.io/JaVault/doc/index. </a></nobr></span><span style="position:absolute;top:537.057190px;left:211.566650px"><nobr><a href="https://loickballoy.github.io/JaVault/doc/index.html" target="_blank">html </a></nobr></span></span></p><p><span style="font-family:宋体;font-size:9.962600px;font-style:normal;font-weight:normal;color:#000000;"><span style="position:absolute;top:560.395935px;left:198.285324px"><nobr>• The projet’s source code : <a href="https://github.com/loickballoy/JaVault" target="_blank">https://github.com/loickballoy/JaVault </a></nobr></span></span></p><p><span style="font-family:宋体;font-size:9.962600px;font-style:normal;font-weight:normal;color:#000000;"><span style="position:absolute;top:586.962646px;left:198.285324px"><nobr>• Short Demo video : [link to the demo video] </nobr></span></span></p><p><span style="font-family:宋体;font-size:9.962600px;font-style:normal;font-weight:normal;color:#000000;"><span style="position:absolute;top:613.530579px;left:198.285324px"><nobr>• JaVault’s Website : <a href="https://loickballoy.github.io/JavaultWebsite/" target="_blank">https://loickballoy.github.io/JavaultWebsite/ </a></nobr></span></span></p><p><span style="font-family:Arial;font-size:9.962600px;font-style:normal;font-weight:normal;color:#000000;"><span style="position:absolute;top:927.627808px;left:404.177338px"><nobr>5 </nobr></span></span></p>']
+            }
+        },
+        mounted: function() {
+            this.$nextTick(function() {
+                this.pageNum = this.pageDatas.length;
+                this.pageContent = this.pageDatas[0];
+
+                this.setLeftMenuHeight();
+            })
+        },
+        watch: {
+            'currentPage': function(newVal, oldValue) {
+                // console.log('newVal ' + newVal, 'oldValue ' + oldValue);
+                if (newVal) {
+                    this.pageContent = this.pageDatas[this.currentPage - 1];
+                }
+            },
+            'zoomNum': function(newVal, oldValue) {
+                if (newVal) {
+                    this.zoomStyle = {
+                        'transform': 'scale(' + newVal + ')',
+                        '-webkit-transform': 'scale(' + newVal + ')',
+                        '-ms-transform': 'scale(' + newVal + ')',
+                        '-moz-transform': 'scale(' + newVal + ')',
+                        '-o-transform': 'scale(' + newVal + ')'
+                    }
+                }
+            }
+        },
+        methods: {
+            
+            changeCurrentPage: function(methods) {
+                switch (methods) {
+                    case 'first':
+                        this.currentPage = 1;
+                        break;
+                    case 'prev':
+                        if (this.currentPage > 1) {
+                            this.currentPage -= 1;
+                        }
+                        break;
+                    case 'next':
+                        if (this.currentPage < this.pageNum) {
+                            this.currentPage += 1;
+                        }
+                        break;
+                    case 'last':
+                        this.currentPage = this.pageNum;
+                        break;
+                }
+            },
+
+            gotoPage: function(page) {
+                console.log(page);
+                this.currentPage = page;
+            },
+            modifyZoom: function(type) {
+                switch (type) {
+                    case 'in':
+                        if (this.zoomNum < 2) {
+                            // this.zoomNum = (this.zoomNum + 0.1).toFixed(1);
+                            this.zoomNum = (parseFloat(this.zoomNum) + 0.1).toFixed(1);
+                        }
+                        break;
+                    case 'out':
+                        if (this.zoomNum > 0.5) {
+                            this.zoomNum = (parseFloat(this.zoomNum) - 0.1).toFixed(1);
+                        }
+                        break;
+                    default:
+                        break;
+                }
+                console.log(this.zoomNum);
+            },
+            setLeftMenuHeight: function() {
+                // this.asideHeight = document.body.scrollHeight - 60;
+                this.mainHeight = document.documentElement.clientHeight - 60 - 20;
+                // 60为头部导航高度， 46为menu高度， 40为上下padding
+                this.asideHeight = this.mainHeight - 20 - 46;
+            },
+            changePage: function(page) {
+                this.currentPage = page;
+                // this.pageContent = this.pageDatas[page - 1];
+            },
+            changeLeftMenu: function() {
+                this.ifMenuShow = !this.ifMenuShow;
+            }
+        }
+    });
+
+function gotoPage(page) {
+    console.log(page);
+    app.gotoPage(page);
+}
+
+</script>
+
+</html>

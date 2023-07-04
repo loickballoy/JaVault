@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <!-- 引入样式 -->
+    <link rel="stylesheet" href="style/style.css">
+
+    <style type="text/css" media="print">
+        .noprint {
+            display: none
+        }
+        
+        .print {
+            display: block !important;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <header class="el-header noprint">
+            <div class="icon-btns">
+                <i class="icon-list" @click="changeLeftMenu"></i>
+                <i class="icon-skip_previous" v-bind:class="{'disabled': currentPage == 1}" @click="changeCurrentPage('first')"></i>
+                <i class="icon-play_arrow prev-icon" v-bind:class="{'disabled': currentPage == 1}" @click="changeCurrentPage('prev')"></i>
+                <i class="icon-play_arrow" v-bind:class="{'disabled': currentPage == pageNum}" @click="changeCurrentPage('next')"></i>
+                <i class="icon-skip_next" v-bind:class="{'disabled': currentPage == pageNum}" @click="changeCurrentPage('last')"></i>
+                <select v-model="currentPage">
+                    <option v-for="page in pageNum" v-bind:value="page">page {{ page }}</option>
+                </select>
+                <i class="icon-zoom_in" v-bind:class="{'disabled': zoomNum == 2}" @click="modifyZoom('in')"></i>
+                <select v-model="zoomNum">
+                    <option value="0.5">50%</option>
+                    <option value="0.6">60%</option>
+                    <option value="0.7">70%</option>
+                    <option value="0.8">80%</option>
+                    <option value="0.9">90%</option>
+                    <option value="1.0" selected>100%</option>
+                    <option value="1.1">110%</option>
+                    <option value="1.2">120%</option>
+                    <option value="1.3">130%</option>
+                    <option value="1.4">140%</option>
+                    <option value="1.5">150%</option>
+                    <option value="1.6">160%</option>
+                    <option value="1.7">170%</option>
+                    <option value="1.8">180%</option>
+                    <option value="1.9">190%</option>
+                    <option value="2.0">200%</option>
+                </select>
+                <i class="icon-zoom_out" v-bind:class="{'disabled': zoomNum == 0.5}" @click="modifyZoom('out')"></i>
+                <i class="icon-format_align_left" @click="textAlign = 'left'"></i>
+                <i class="icon-format_align_center" @click="textAlign = 'center'"></i>
+                <i class="icon-format_align_right" @click="textAlign = 'right'"></i>
+                <i class="icon-print" @click="window.print()"></i>
+            </div>
+        </header>
+
+        <aside class="noprint" width="240px" v-show="ifMenuShow">
+            <nav class="tabNav">
+                <ul>
+                    <li v-bind:class="{ 'curr': currentNav == 0 }" @click="currentNav = 0">Page</li>
+                    <li v-bind:class="{ 'curr': currentNav == 1 }" @click="currentNav = 1">Bookmark</li>
+                </ul>
+
+                <div class="clear"></div>
+            </nav>
+
+            <div class="tab-conent scrollbar" v-bind:style="{ height: asideHeight + 'px' }">
+
+            <section v-show="currentNav == 0">
+                <ul class="page-menu">
+                    <li v-for="page in pageNum" v-bind:class="{ 'curr': currentPage == page }" @click="changePage(page)"><i class="icon-file-text2"></i> page {{ page }}</li>
+                </ul>
+            </section>
+
+            <section v-show="currentNav == 1">
+                <ul class="page-menu">
+                    <li v-for="page in pageNum" v-bind:class="{ 'curr': currentPage == page }" @click="changePage(page)"><i class="icon-turned_in_not"></i> Bookmark {{ page }}</li>
+                </ul>
+            </section>
+        </div>
+
+        </aside>
+        <div class="main scrollbar noprint"  v-bind:style="{ height: mainHeight + 'px' }" v-bind:class="{ 'mainLeftM': ifMenuShow, 'aleft': textAlign === 'left','acenter': textAlign === 'center','aright': textAlign === 'right'}">
+            <div class="conent" v-html="pageContent" v-bind:style="zoomStyle"></div>
+
+            <div class="clear"></div>
+        </div>
+
+        <!--专门只为打印的内容-->
+        <div class="conent print" style="display:none" v-html="pageContent"></div>
+    </div>
+</body>
+<!-- 先引入 Vue -->
+<script src="js/vue.min.js"></script>
+<script>
+
+var app = new Vue({
+        el: '#app',
+        data: function() {
+            return {
+                // visible: false,
+                isCollapse: false,
+                currentNav: 0,
+                activeName2: 'first',
+                pageNum: 1, 
+                currentPage: 1,
+                pageContent: '',
+                asideHeight: 300,
+                mainHeight: 300,
+                ifMenuShow: true,
+                zoomNum: '1.0',
+                textAlign: 'left',
+                zoomStyle: {},
+                pageDatas: ['<div style="position:absolute;top:0.000000px;left:0.000000px"><nobr><img height="1056.000000" width="816.000000" src ="bgimg/bg00001.jpg"/></nobr></div><p><span style="font-family:Arial;font-size:24.787100px;font-weight:bold;color:#000000;"><span style="position:absolute;top:364.779633px;left:245.516006px"><nobr>Cahier Des Charges </nobr></span></span></p><p><span style="font-family:Arial;font-size:14.346200px;font-weight:bold;color:#0000FF;"><span style="position:absolute;top:417.248962px;left:371.101318px"><nobr>JaVault </nobr></span></span></p><p><span style="font-family:Arial;font-size:14.346200px;font-style:normal;font-weight:normal;color:#000000;"><span style="position:absolute;top:460.056976px;left:191.223999px"><nobr>Comment pourrions-nous concevoir et d´ evelopper un </nobr></span><span style="position:absolute;top:483.967651px;left:206.294647px"><nobr>IDE s´ ecuris´ e pour les d´ eveloppeurs Java avec des </nobr></span></span></p><p><span style="font-family:Arial;font-size:14.346200px;font-style:normal;font-weight:normal;color:#000000;"><span style="position:absolute;top:507.878357px;left:189.559998px"><nobr>fonctionnalit´ es avanc´ ees d’´ edition, de s´ ecurisation, de </nobr></span></span></p><p><span style="font-family:Arial;font-size:14.346200px;font-style:normal;font-weight:normal;color:#000000;"><span style="position:absolute;top:531.787659px;left:257.662659px"><nobr>cryptage et de v´ erification du code ? </nobr></span></span></p><p><span style="font-family:Arial;font-size:9.962600px;font-style:normal;font-weight:normal;color:#000000;"><span style="position:absolute;top:628.171997px;left:361.743988px"><nobr>Lo¨ıck BALLOY </nobr></span></span></p><p><span style="font-family:Arial;font-size:9.962600px;font-style:normal;font-weight:normal;color:#000000;"><span style="position:absolute;top:644.112000px;left:337.206665px"><nobr>R´ emy DECOURCELLE </nobr></span></span></p><p><span style="font-family:Arial;font-size:9.962600px;font-style:normal;font-weight:normal;color:#000000;"><span style="position:absolute;top:660.053284px;left:351.597321px"><nobr>Hamza OUHMANI </nobr></span></span></p><p><span style="font-family:Arial;font-size:9.962600px;font-style:normal;font-weight:normal;color:#000000;"><span style="position:absolute;top:675.993286px;left:334.946655px"><nobr>Guillaume CHARVOLIN </nobr></span></span></p><p><span style="font-family:Arial;font-size:11.955200px;font-style:normal;font-weight:normal;color:#000000;"><span style="position:absolute;top:885.933411px;left:364.035980px"><nobr>23 Juin 2023 </nobr></span></span></p>','<div style="position:absolute;top:0.000000px;left:0.000000px"><nobr><img height="1056.000000" width="816.000000" src ="bgimg/bg00002.jpg"/></nobr></div><p><span style="font-family:Arial;font-size:14.346200px;font-weight:bold;color:#000000;"><span style="position:absolute;top:166.411621px;left:178.357315px"><nobr>1 Introduction </nobr></span></span></p><p><span style="font-family:Arial;font-size:9.962600px;font-style:normal;font-weight:normal;color:#000000;"><span style="position:absolute;top:199.562500px;left:178.357315px"><nobr>L’objectif de ce projet est de d´ evelopper un environnement de d´ eveloppement </nobr></span><span style="position:absolute;top:215.502518px;left:178.357315px"><nobr>int´ egr´ e (IDE) s´ ecuris´ e sp´ ecifiquement con¸u pour les d´ eveloppeurs travaillant </nobr></span><span style="position:absolute;top:231.442551px;left:178.357315px"><nobr>exclusivement en Java, en mettant l’accent sur la s´ ecurit´ e du code. Cet IDE </nobr></span><span style="position:absolute;top:247.382568px;left:178.357315px"><nobr>offrira des fonctionnalit´ es avanc´ ees d’´ edition, de s´ ecurisation, de cryptage et de </nobr></span><span style="position:absolute;top:263.322601px;left:178.357315px"><nobr>v´ erification de code. </nobr></span></span></p><p><span style="font-family:Arial;font-size:14.346200px;font-weight:bold;color:#000000;"><span style="position:absolute;top:303.194336px;left:178.357315px"><nobr>2 Fonctionnalit´ es principales </nobr></span></span></p><p><span style="font-family:Arial;font-size:11.955200px;font-weight:bold;color:#000000;"><span style="position:absolute;top:337.158783px;left:178.357315px"><nobr>2.1 Int´ egration du backend existant </nobr></span></span></p><p><span style="font-family:宋体;font-size:9.962600px;font-style:normal;font-weight:normal;color:#000000;"><span style="position:absolute;top:360.293365px;left:198.285324px"><nobr>• Int´ egrer les fonctionnalit´ es du backend d´ ej` a d´ evelopp´ , notamment Git </nobr></span><span style="position:absolute;top:379.461273px;left:211.566650px"><nobr>pour la gestion de versions, Maven pour la gestion des d´ ependances et </nobr></span><span style="position:absolute;top:395.401245px;left:211.566650px"><nobr>File pour la manipulation des fichiers. </nobr></span></span></p><p><span style="font-family:Arial;font-size:11.955200px;font-weight:bold;color:#000000;"><span style="position:absolute;top:430.742767px;left:178.357315px"><nobr>2.2 </nobr></span></span></p><p><span style="font-family:Arial;font-size:11.955200px;font-weight:bold;color:#000000;"><span style="position:absolute;top:430.742767px;left:219.203979px"><nobr>Edition de code am´ elior´ ee </nobr></span></span></p><p><span style="font-family:宋体;font-size:9.962600px;font-style:normal;font-weight:normal;color:#000000;"><span style="position:absolute;top:453.877350px;left:198.285324px"><nobr>• Impl´ ementer une fonctionnalit´ e d’autocompl´ etion du code pour acc´ el´ erer </nobr></span><span style="position:absolute;top:473.045258px;left:211.566650px"><nobr>le processus de d´ eveloppement. </nobr></span></span></p><p><span style="font-family:宋体;font-size:9.962600px;font-style:normal;font-weight:normal;color:#000000;"><span style="position:absolute;top:496.385315px;left:198.285324px"><nobr>• Mettre en couleur le code pour am´ eliorer la lisibilit´ e et la compr´ ehension. </nobr></span></span></p><p><span style="font-family:Arial;font-size:9.962600px;font-style:normal;font-weight:normal;color:#000000;"><span style="position:absolute;top:927.627930px;left:404.177338px"><nobr>1 </nobr></span></span></p>','<div style="position:absolute;top:0.000000px;left:0.000000px"><nobr><img height="1056.000000" width="816.000000" src ="bgimg/bg00003.jpg"/></nobr></div><p><span style="font-family:Arial;font-size:11.955200px;font-weight:bold;color:#000000;"><span style="position:absolute;top:418.589447px;left:178.357315px"><nobr>2.3 Fonctionnalit´ e de s´ ecurit´ e ”i3lock-like” </nobr></span></span></p><p><span style="font-family:宋体;font-size:9.962600px;font-style:normal;font-weight:normal;color:#000000;"><span style="position:absolute;top:441.724030px;left:198.285324px"><nobr>• Permettre ` a l’utilisateur de s´ ecuriser/mettre en veille l’IDE de mani` ere ` a </nobr></span><span style="position:absolute;top:460.891937px;left:211.566650px"><nobr>cacher le code et empˆ cher l’acc` es non autoris´ e. </nobr></span></span></p><p><span style="font-family:宋体;font-size:9.962600px;font-style:normal;font-weight:normal;color:#000000;"><span style="position:absolute;top:484.231995px;left:198.285324px"><nobr>• Mettre en place un m´ ecanisme d’authentification s´ ecuris´ e pour emp ˆ echer </nobr></span><span style="position:absolute;top:503.399902px;left:211.566650px"><nobr>tout acc` es non autoris´ e au code. </nobr></span></span></p><p><span style="font-family:Arial;font-size:11.955200px;font-weight:bold;color:#000000;"><span style="position:absolute;top:790.456177px;left:178.357315px"><nobr>2.4 Cryptage et d´ ecryptage des fichiers sauvegard´ s </nobr></span></span></p><p><span style="font-family:宋体;font-size:9.962600px;font-style:normal;font-weight:normal;color:#000000;"><span style="position:absolute;top:813.590637px;left:201.974655px"><nobr>• Impl´ ementer un m´ ecanisme de cryptage et de d´ ecryptage des fichiers de </nobr></span><span style="position:absolute;top:832.758606px;left:230.623962px"><nobr>code sauvegard´ s par l’utilisateur pour assurer leur confidentialit´ . </nobr></span></span></p><p><span style="font-family:Arial;font-size:9.962600px;font-style:normal;font-weight:normal;color:#000000;"><span style="position:absolute;top:927.627930px;left:404.177338px"><nobr>2 </nobr></span></span></p>','<div style="position:absolute;top:0.000000px;left:0.000000px"><nobr><img height="1056.000000" width="816.000000" src ="bgimg/bg00004.jpg"/></nobr></div><p><span style="font-family:Arial;font-size:11.955200px;font-weight:bold;color:#000000;"><span style="position:absolute;top:443.813477px;left:178.357315px"><nobr>2.5 V´ erification de la s´ ecurit´ e du code </nobr></span></span></p><p><span style="font-family:宋体;font-size:9.962600px;font-style:normal;font-weight:normal;color:#000000;"><span style="position:absolute;top:466.948090px;left:198.285324px"><nobr>• Si le temps le permet, d´ evelopper une fonctionnalit´ e permettant ` a l’utilisateur </nobr></span><span style="position:absolute;top:486.115997px;left:211.566650px"><nobr>de v´ erifier si son code poss` ede des failles de s´ ecurit´ e connues. </nobr></span></span></p><p><span style="font-family:宋体;font-size:9.962600px;font-style:normal;font-weight:normal;color:#000000;"><span style="position:absolute;top:509.456055px;left:211.991989px"><nobr>• Int´ egrer des outils d’analyse statique pour d´ etecter les vuln´ erabilit´ es </nobr></span></span></p><p><span style="font-family:Arial;font-size:9.962600px;font-style:normal;font-weight:normal;color:#000000;"><span style="position:absolute;top:528.623901px;left:269.441315px"><nobr>potentielles et fournir des suggestions d’am´ elioration. </nobr></span></span></p><p><span style="font-family:Arial;font-size:9.962600px;font-style:normal;font-weight:normal;color:#000000;"><span style="position:absolute;top:927.627930px;left:404.177338px"><nobr>3 </nobr></span></span></p>','<p><span style="font-family:Arial;font-size:14.346200px;font-weight:bold;color:#000000;"><span style="position:absolute;top:166.411621px;left:178.357315px"><nobr>3 Ambitions </nobr></span></span></p><p><span style="font-family:Arial;font-size:11.955200px;font-weight:bold;color:#000000;"><span style="position:absolute;top:200.374680px;left:178.357315px"><nobr>3.1 Test antivirus pour les fichiers charg´ es par l’utilisateur </nobr></span><span style="position:absolute;top:223.509277px;left:198.285324px"><nobr>• Si le temps le permet, int´ egrer un syst`eme de test antivirus pour scanner </nobr></span></span></p><p><span style="font-family:Arial;font-size:9.962600px;font-style:normal;font-weight:normal;color:#000000;"><span style="position:absolute;top:242.678467px;left:211.566650px"><nobr>les fichiers charg´ es dans l’IDE afin de pr´ evenir les attaques par injection </nobr></span><span style="position:absolute;top:258.618500px;left:211.566650px"><nobr>de code malveillant. </nobr></span></span></p><p><span style="font-family:Arial;font-size:14.346200px;font-weight:bold;color:#000000;"><span style="position:absolute;top:298.490234px;left:178.357315px"><nobr>4 Contraintes techniques </nobr></span></span></p><p><span style="font-family:宋体;font-size:9.962600px;font-style:normal;font-weight:normal;color:#000000;"><span style="position:absolute;top:328.413239px;left:198.285324px"><nobr>• Le d´ eveloppement de l’IDE doit ˆ etre bas´ e sur la technologie Java pour </nobr></span><span style="position:absolute;top:347.581146px;left:211.566650px"><nobr>une compatibilit´ e optimale avec les besoins des d´ eveloppeurs travaillant </nobr></span><span style="position:absolute;top:363.521149px;left:211.566650px"><nobr>exclusivement en Java. </nobr></span></span></p><p><span style="font-family:宋体;font-size:9.962600px;font-style:normal;font-weight:normal;color:#000000;"><span style="position:absolute;top:386.859955px;left:198.285324px"><nobr>• Le cryptage et la s´ ecurit´ e des donn´ ees doivent respecter les normes de </nobr></span><span style="position:absolute;top:406.027832px;left:211.566650px"><nobr>chiffrement solides et reconnues pour garantir la confidentialit´ des fichiers. </nobr></span></span></p><p><span style="font-family:Arial;font-size:14.346200px;font-weight:bold;color:#000000;"><span style="position:absolute;top:445.899536px;left:178.357315px"><nobr>5 Livrables attendus </nobr></span></span></p><p><span style="font-family:宋体;font-size:9.962600px;font-style:normal;font-weight:normal;color:#000000;"><span style="position:absolute;top:475.822601px;left:198.285324px"><nobr>• Un IDE fonctionnel avec toutes les fonctionnalit´ es d´ ecrites ci-dessus. </nobr></span><span style="position:absolute;top:502.389221px;left:198.285324px"><nobr>• Un code bien structur´ e, document´ et facilement maintenable. </nobr></span></span></p><p><span style="font-family:宋体;font-size:9.962600px;font-style:normal;font-weight:normal;color:#000000;"><span style="position:absolute;top:528.957275px;left:198.285324px"><nobr>• Une documentation claire et compl` ete sur l’utilisation de l’IDE et ses </nobr></span><span style="position:absolute;top:548.125122px;left:211.566650px"><nobr>fonctionnalit´ es. </nobr></span></span></p><p><span style="font-family:Arial;font-size:14.346200px;font-weight:bold;color:#000000;"><span style="position:absolute;top:587.996826px;left:178.357315px"><nobr>6 Planning pr´ evisionnel </nobr></span></span></p><p><span style="font-family:Arial;font-size:9.962600px;font-style:normal;font-weight:normal;color:#000000;"><span style="position:absolute;top:621.147827px;left:194.593323px"><nobr>1. Phase 1 : Analyse des besoins et conception de l’architecture de l’IDE. </nobr></span><span style="position:absolute;top:647.714478px;left:194.593323px"><nobr>2. Phase 2 : Impl´ ementation des fonctionnalit´ es principales. </nobr></span></span></p><p><span style="font-family:Arial;font-size:9.962600px;font-style:normal;font-weight:normal;color:#000000;"><span style="position:absolute;top:674.281128px;left:194.593323px"><nobr>3. Phase 3 : Int´ egration des fonctionnalit´ es de s´ ecurit´ e avanc´ ees. </nobr></span></span></p><p><span style="font-family:Arial;font-size:9.962600px;font-style:normal;font-weight:normal;color:#000000;"><span style="position:absolute;top:700.849121px;left:194.593323px"><nobr>4. Phase 4 : Tests, d´ ebogage et optimisation. </nobr></span></span></p><p><span style="font-family:Arial;font-size:9.962600px;font-style:normal;font-weight:normal;color:#000000;"><span style="position:absolute;top:727.415771px;left:278.814667px"><nobr>5. Phase 5 : Documentation et livraison finale. </nobr></span></span></p><p><span style="font-family:Arial;font-size:9.962600px;font-style:normal;font-weight:normal;color:#000000;"><span style="position:absolute;top:927.627808px;left:404.177338px"><nobr>4 </nobr></span></span></p>','<div style="position:absolute;top:0.000000px;left:0.000000px"><nobr><img height="1056.000000" width="816.000000" src ="bgimg/bg00005.jpg"/></nobr></div><p><span style="font-family:Arial;font-size:14.346200px;font-weight:bold;color:#000000;"><span style="position:absolute;top:442.802307px;left:178.357315px"><nobr>7 Ressources suppl´ ementaires </nobr></span></span></p><p><span style="font-family:Arial;font-size:9.962600px;font-style:normal;font-weight:normal;color:#000000;"><span style="position:absolute;top:475.953247px;left:178.357315px"><nobr>Pour plus d’informations sur le projet, veuillez consulter les ressources suivantes: </nobr></span><span style="position:absolute;top:501.949341px;left:198.285324px"><nobr>• Documentation de l’IDE : <a href="https://loickballoy.github.io/JaVault/doc/index.html" target="_blank">https://loickballoy.github.io/JaVault/doc/index. </a></nobr></span></span></p><p><span style="font-family:Arial;font-size:9.962600px;font-style:normal;font-weight:normal;color:#00AEEF;"><span style="position:absolute;top:521.117249px;left:211.566650px"><nobr><a href="https://loickballoy.github.io/JaVault/doc/index.html" target="_blank">html </a></nobr></span></span></p><p><span style="font-family:宋体;font-size:9.962600px;font-style:normal;font-weight:normal;color:#000000;"><span style="position:absolute;top:544.455933px;left:198.285324px"><nobr>• Code source du projet : <a href="https://github.com/loickballoy/JaVault" target="_blank">https://github.com/loickballoy/JaVault </a></nobr></span></span></p><p><span style="font-family:宋体;font-size:9.962600px;font-style:normal;font-weight:normal;color:#000000;"><span style="position:absolute;top:571.022644px;left:198.285324px"><nobr>• Vid´ eo de d´ emonstration : [lien vers la vid´ eo de d´ emonstration] </nobr></span></span></p><p><span style="font-family:宋体;font-size:9.962600px;font-style:normal;font-weight:normal;color:#000000;"><span style="position:absolute;top:597.590576px;left:198.285324px"><nobr>• Site du projet : <a href="https://loickballoy.github.io/JavaultWebsite/" target="_blank">https://loickballoy.github.io/JavaultWebsite/ </a></nobr></span></span></p><p><span style="font-family:Arial;font-size:9.962600px;font-style:normal;font-weight:normal;color:#000000;"><span style="position:absolute;top:927.627808px;left:404.177338px"><nobr>5 </nobr></span></span></p>']
+            }
+        },
+        mounted: function() {
+            this.$nextTick(function() {
+                this.pageNum = this.pageDatas.length;
+                this.pageContent = this.pageDatas[0];
+
+                this.setLeftMenuHeight();
+            })
+        },
+        watch: {
+            'currentPage': function(newVal, oldValue) {
+                // console.log('newVal ' + newVal, 'oldValue ' + oldValue);
+                if (newVal) {
+                    this.pageContent = this.pageDatas[this.currentPage - 1];
+                }
+            },
+            'zoomNum': function(newVal, oldValue) {
+                if (newVal) {
+                    this.zoomStyle = {
+                        'transform': 'scale(' + newVal + ')',
+                        '-webkit-transform': 'scale(' + newVal + ')',
+                        '-ms-transform': 'scale(' + newVal + ')',
+                        '-moz-transform': 'scale(' + newVal + ')',
+                        '-o-transform': 'scale(' + newVal + ')'
+                    }
+                }
+            }
+        },
+        methods: {
+            
+            changeCurrentPage: function(methods) {
+                switch (methods) {
+                    case 'first':
+                        this.currentPage = 1;
+                        break;
+                    case 'prev':
+                        if (this.currentPage > 1) {
+                            this.currentPage -= 1;
+                        }
+                        break;
+                    case 'next':
+                        if (this.currentPage < this.pageNum) {
+                            this.currentPage += 1;
+                        }
+                        break;
+                    case 'last':
+                        this.currentPage = this.pageNum;
+                        break;
+                }
+            },
+
+            gotoPage: function(page) {
+                console.log(page);
+                this.currentPage = page;
+            },
+            modifyZoom: function(type) {
+                switch (type) {
+                    case 'in':
+                        if (this.zoomNum < 2) {
+                            // this.zoomNum = (this.zoomNum + 0.1).toFixed(1);
+                            this.zoomNum = (parseFloat(this.zoomNum) + 0.1).toFixed(1);
+                        }
+                        break;
+                    case 'out':
+                        if (this.zoomNum > 0.5) {
+                            this.zoomNum = (parseFloat(this.zoomNum) - 0.1).toFixed(1);
+                        }
+                        break;
+                    default:
+                        break;
+                }
+                console.log(this.zoomNum);
+            },
+            setLeftMenuHeight: function() {
+                // this.asideHeight = document.body.scrollHeight - 60;
+                this.mainHeight = document.documentElement.clientHeight - 60 - 20;
+                // 60为头部导航高度， 46为menu高度， 40为上下padding
+                this.asideHeight = this.mainHeight - 20 - 46;
+            },
+            changePage: function(page) {
+                this.currentPage = page;
+                // this.pageContent = this.pageDatas[page - 1];
+            },
+            changeLeftMenu: function() {
+                this.ifMenuShow = !this.ifMenuShow;
+            }
+        }
+    });
+
+function gotoPage(page) {
+    console.log(page);
+    app.gotoPage(page);
+}
+
+</script>
+
+</html>
