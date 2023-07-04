@@ -46,8 +46,6 @@ VIDEO DEMO
 
 ## Resources (Documentation and other links)
 
-[Specification_FR](https://loickballoy.github.io/JaVault/Cahier_Des_Charges_PING/index.html) [Specification_EN](https://loickballoy.github.io/JaVault/Specs/index.html)
-
 [Documentation](https://loickballoy.github.io/JaVault/doc/index.html)
 
 ## WebSite
