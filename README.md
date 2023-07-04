@@ -21,6 +21,7 @@ The objective of this project is to develop a secure integrated development envi
 ## Installation
 
 To install and run our project, please find the download link on our website:
+https://loickballoy.github.io/JavaultWebsite/
 
 ## Demo
 
@@ -46,11 +47,9 @@ VIDEO DEMO
 
 ## Resources (Documentation and other links)
 
-[Specification](https://acrobat.adobe.com/id/urn:aaid:sc:EU:7fe2d6ba-cdb6-402c-898e-f7814aaec242)
-
 [Documentation](https://loickballoy.github.io/JaVault/doc/index.html)
 
 ## WebSite
 
 Our project's Website :
-https://loickballoy.github.io/
+https://loickballoy.github.io/JavaultWebsite/
