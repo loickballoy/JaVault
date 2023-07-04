@@ -46,7 +46,7 @@ VIDEO DEMO
 
 ## Resources (Documentation and other links)
 
-[Specification](https://acrobat.adobe.com/id/urn:aaid:sc:EU:7fe2d6ba-cdb6-402c-898e-f7814aaec242)
+[Specification_FR](https://loickballoy.github.io/JaVault/Cahier_Des_Charges_PING/index.html) [Specification_EN](https://loickballoy.github.io/JaVault/Specs/index.html)
 
 [Documentation](https://loickballoy.github.io/JaVault/doc/index.html)
 
