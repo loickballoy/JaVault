@@ -53,4 +53,4 @@ VIDEO DEMO
 ## WebSite
 
 Our project's Website :
-https://thefoxell.github.io/CityMapWebsite/index.html
+https://loickballoy.github.io/
