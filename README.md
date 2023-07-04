@@ -48,7 +48,7 @@ VIDEO DEMO
 
 [Specification](https://acrobat.adobe.com/id/urn:aaid:sc:EU:7fe2d6ba-cdb6-402c-898e-f7814aaec242)
 
-[Documentation](https://acrobat.adobe.com/id/urn:aaid:sc:EU:7fe2d6ba-cdb6-402c-898e-f7814aaec242) 
+[Documentation](https://loickballoy.github.io/JaVault/doc/index.html)
 
 ## WebSite
 
