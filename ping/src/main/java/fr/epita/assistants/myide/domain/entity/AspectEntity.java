@@ -13,6 +13,12 @@ import fr.epita.assistants.myide.domain.entity.maven.Package;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This is the AspectEntity class where we implement the given Aspect interface.
+ *
+ * @author remy.decourcelle@epita.fr guillaume.charvolin@epita.fr
+ * @version 1.0
+ */
 public class AspectEntity implements Aspect{
 
     private Type type;

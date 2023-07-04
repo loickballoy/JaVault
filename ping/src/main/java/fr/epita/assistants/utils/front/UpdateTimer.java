@@ -3,6 +3,12 @@ package fr.epita.assistants.utils.front;
 import java.util.Timer;
 import java.util.TimerTask;
 
+/**
+ * A timer class to help us apply our syntaxic theme in a fluid manner
+ *
+ * @author remy.decourcelle@epita.fr loick.balloy@epita.fr
+ * @version 1.0
+ */
 public class UpdateTimer {
     // Variable globale à mettre à jour
     public static boolean globalVariable = false;

@@ -20,6 +20,12 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Scanner;
 
+/**
+ * This is the FileManger class which creates functions to help us handle the files opened in our IDE
+ *
+ * @author loick.balloy@epita.fr remy.decourcelle@epita.fr
+ * @version 1.0
+ */
 public class FileManager {
 
     private static boolean listenerLinesEnabled = true;

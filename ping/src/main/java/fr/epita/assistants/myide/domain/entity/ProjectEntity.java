@@ -6,6 +6,12 @@ import java.nio.file.InvalidPathException;
 import java.nio.file.Path;
 import java.util.*;
 
+/**
+ * This is the ProjectEntity class where we implement the given Project interface.
+ *
+ * @author remy.decourcelle@epita.fr guillaume.charvolin@epita.fr
+ * @version 1.0
+ */
 public class ProjectEntity implements Project {
     private Node rootNode;
     private Set<Aspect> aspects;

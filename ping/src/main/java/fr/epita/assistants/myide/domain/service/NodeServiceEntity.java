@@ -21,6 +21,12 @@ import java.util.List;
 
 import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
 
+/**
+ * This is the NodeServiceEntity class where we implement the given NodeService interface.
+ *
+ * @author loick.balloy@epita.fr hamza.ouhmani@epita.fr
+ * @version 1.0
+ */
 public class NodeServiceEntity implements NodeService{
 
     private ProjectEntity project;

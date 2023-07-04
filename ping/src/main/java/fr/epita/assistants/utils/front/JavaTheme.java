@@ -15,6 +15,12 @@ import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * This is the JavaTheme class which we use to color and apply the style to our IDE
+ *
+ * @author loick.balloy@epita.fr
+ * @version 1.0
+ */
 public class JavaTheme {
     private static final Color typeColor = Color.RED;
     private static final Color keywordColor = Color.BLUE;

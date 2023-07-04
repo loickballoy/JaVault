@@ -19,6 +19,12 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
 
+/**
+ * This is the Push class where we handle the git.features: push.
+ *
+ * @author Guillaume.charvolin@epita.fr
+ * @version 1.0
+ */
 public class Push implements Feature {
 
     @Override

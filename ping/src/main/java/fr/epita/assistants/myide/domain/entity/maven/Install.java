@@ -5,6 +5,12 @@ import fr.epita.assistants.myide.domain.entity.Mandatory;
 import fr.epita.assistants.myide.domain.entity.Project;
 import fr.epita.assistants.utils.FeatureUtils;
 
+/**
+ * This is the Install class where we handle the mvn.features: install.
+ *
+ * @author loick.balloy@epita.fr
+ * @version 1.0
+ */
 public class Install implements Feature {
 
     @Override

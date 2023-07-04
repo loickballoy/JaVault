@@ -26,6 +26,12 @@ import java.io.OutputStream;
 import java.nio.file.Paths;
 import java.util.*;
 
+/**
+ * This is the Interface class. The entry point of our IDE where we initialize everything needed for our IDE to function correctly.
+ *
+ * @author loick.balloy@epita.fr remy.decourcelle@epita.fr hamza.ouhmani@epita.fr
+ * @version 1.0
+ */
 
 public class Interface extends Application {
 

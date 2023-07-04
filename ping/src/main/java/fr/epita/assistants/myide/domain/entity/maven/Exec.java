@@ -5,6 +5,12 @@ import fr.epita.assistants.myide.domain.entity.Mandatory;
 import fr.epita.assistants.myide.domain.entity.Project;
 import fr.epita.assistants.utils.FeatureUtils;
 
+/**
+ * This is the Exec class where we handle the mvn.features: exec.
+ *
+ * @author loick.balloy@epita.fr
+ * @version 1.0
+ */
 public class Exec implements Feature {
 
     @Override

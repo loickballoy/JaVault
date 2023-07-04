@@ -7,7 +7,12 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Path;
 
-
+/**
+        * This is the Search class where we handle the Any.features: search.
+        *
+        * @author Remy.decourcelle@epita.fr
+        * @version 1.0
+        */
 public class Search implements Feature {
 
     private boolean runThrowChild(Node father, String toSearch) { //AMELIORABLE

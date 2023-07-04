@@ -18,6 +18,12 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Stream;
 
+/**
+    * This is the Add class where we handle the git.features: add.
+    *
+    * @author Hamza.Ouhmani@epita.fr
+    * @version 1.0
+    */
 public class Add implements Feature {
 
     public ExecutionReport execute2(Project project, Object... params) {

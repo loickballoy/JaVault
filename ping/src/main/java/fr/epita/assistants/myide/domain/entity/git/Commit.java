@@ -12,6 +12,12 @@ import org.eclipse.jgit.lib.RepositoryBuilder;
 import java.io.File;
 import java.io.IOException;
 
+/**
+ * This is the Commit class where we handle the git.features: commit.
+ *
+ * @author Hamza.Ouhmani@epita.fr
+ * @version 1.0
+ */
 public class Commit implements Feature {
 
     @Override

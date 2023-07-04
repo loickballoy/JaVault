@@ -18,6 +18,12 @@ import java.util.Set;
 
 import static fr.epita.assistants.utils.front.CryptoManager.generateRandomKey;
 
+/**
+ * This is the PasswordManager class which we use to simplify the process of the i3lock-like feature
+ *
+ * @author remy.decourcelle@epita.fr
+ * @version 1.0
+ */
 public class PasswordManager {
     private static String projectmdp = null;
 

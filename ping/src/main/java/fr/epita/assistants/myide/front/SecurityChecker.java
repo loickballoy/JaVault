@@ -12,6 +12,12 @@ import java.io.IOException;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
+/**
+ * This is the SecurityChecker class which creates functions to analyze the security breaches in the files opened in our IDE
+ *
+ * @author loick.balloy@epita.fr
+ * @version 1.0
+ */
 public class SecurityChecker {
     private Engine engine;
     private Executor executor;

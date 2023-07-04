@@ -10,6 +10,13 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This is the NodeEntity class where we implement the given Node interface.
+ *
+ * @author loick.balloy@epita.fr hamza.ouhmani@epita.fr
+ * @version 1.0
+ */
+
 public class NodeEntity implements Node{
     private Path path;
     private Types type;

@@ -10,6 +10,12 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.security.InvalidParameterException;
 
+/**
+ * This is the cleanup class where we handle the Any.features: cleanup.
+ *
+ * @author Remy.decourcelle@epita.fr
+ * @version 1.0
+ */
 public class Cleanup implements Feature {
 
     private Node searchNode(Node node, Node father) { //AMELIORABLE

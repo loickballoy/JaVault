@@ -9,6 +9,13 @@ import java.io.*;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
+
+/**
+ * This is the Dist class where we handle the Any.features: dist (tarball, zip, etc...).
+ *
+ * @author Remy.decourcelle@epita.fr
+ * @version 1.0
+ */
 public class Dist implements Feature {
 
     private static void zipFile(File fileToZip, String fileName, ZipOutputStream zipOut) throws IOException {

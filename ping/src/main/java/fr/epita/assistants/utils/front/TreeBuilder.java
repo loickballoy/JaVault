@@ -4,6 +4,12 @@ import javafx.scene.control.TreeItem;
 
 import java.io.File;
 
+/**
+ * This is the TreeBuilder class which we use for the display of our directory tree
+ *
+ * @author remy.decourcelle@epita.fr
+ * @version 1.0
+ */
 public class TreeBuilder {
     public static void buildTree(File directory, TreeItem<String> parentItem)
     {

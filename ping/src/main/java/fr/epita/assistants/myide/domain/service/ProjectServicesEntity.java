@@ -13,6 +13,12 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+/**
+ * This is the ProjectServiceEntity class where we implement the given ProjectService interface.
+ *
+ * @author remy.decourcelle@epita.fr guillaume.charvolin@epita.fr
+ * @version 1.0
+ */
 public class ProjectServicesEntity implements ProjectService {
 
     private MyIde.Configuration configuration;

@@ -4,6 +4,12 @@ import fr.epita.assistants.myide.domain.entity.Feature;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
 
+/**
+ * This is the MyMenuItem class which creates functions to link our backend features to the frontend. It is not exclusively that but mostly used for that in our MyToolBar class.
+ *
+ * @author guillaume.charvolin@epita.fr
+ * @version 1.0
+ */
 public class MyMenuItem {
 
     MenuItem menuItem;

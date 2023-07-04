@@ -37,6 +37,12 @@ import java.util.regex.Pattern;
 
 import static fr.epita.assistants.myide.domain.entity.Feature.*;
 
+/**
+ * This is the MyToolBar class. As the name suggest here we link the backend features, and add the ones needed. These features can be executed through buttons that we define in this class.
+ *
+ * @author loick.balloy@epita.fr remy.decourcelle@epita.fr hazma.ouhmani@epita.fr guillaume.charvolin@epita.fr
+ * @version 1.0
+ */
 public class MyToolBar {
 
     public static ToolBar init(Stage primaryStage, File rootPath) {

@@ -13,6 +13,12 @@ import java.security.NoSuchAlgorithmException;
 import java.util.Base64;
 
 
+/**
+ * This is the crypto class which we use to simplify the process of password and save encryption
+ *
+ * @author remy.decourcelle@epita.fr
+ * @version 1.0
+ */
 public class CryptoManager {
 
     public static byte[] encryptAES(String plaintext, String secretKey) throws Exception {

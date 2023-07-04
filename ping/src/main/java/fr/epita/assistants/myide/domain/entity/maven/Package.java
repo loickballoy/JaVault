@@ -5,6 +5,12 @@ import fr.epita.assistants.myide.domain.entity.Mandatory;
 import fr.epita.assistants.myide.domain.entity.Project;
 import fr.epita.assistants.utils.FeatureUtils;
 
+/**
+ * This is the Package class where we handle the mvn.features: package.
+ *
+ * @author loick.balloy@epita.fr
+ * @version 1.0
+ */
 public class Package implements Feature {
 
     @Override

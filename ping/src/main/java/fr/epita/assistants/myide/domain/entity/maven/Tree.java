@@ -12,6 +12,12 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * This is the Tree class where we handle the mvn.features: tree.
+ *
+ * @author loick.balloy@epita.fr
+ * @version 1.0
+ */
 public class Tree implements Feature {
 
     @Override

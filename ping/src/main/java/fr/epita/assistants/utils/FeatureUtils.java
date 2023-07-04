@@ -10,6 +10,12 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * This is the Feature class where we create an util function to help us execute the different features (Git, maven, Any).
+ *
+ * @author loick.balloy@epita.fr guillaume.charrvolin@epita.fr
+ * @version 1.0
+ */
 public class FeatureUtils {
 
     public static Feature.ExecutionReport FeatureExecute(Project project, String aspect, String type, Object... params){

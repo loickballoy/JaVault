@@ -5,6 +5,12 @@ import fr.epita.assistants.myide.domain.entity.Mandatory;
 import fr.epita.assistants.myide.domain.entity.Project;
 import fr.epita.assistants.utils.FeatureUtils;
 
+/**
+ * This is the Compile class where we handle the mvn.features: compile.
+ *
+ * @author Guillaume.charvolin@epita.fr
+ * @version 1.0
+ */
 public class Compile implements Feature {
 
     @Override
