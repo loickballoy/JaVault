@@ -21,6 +21,7 @@ The objective of this project is to develop a secure integrated development envi
 ## Installation
 
 To install and run our project, please find the download link on our website:
+https://loickballoy.github.io/JavaultWebsite/
 
 ## Demo
 
