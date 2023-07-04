@@ -52,4 +52,4 @@ VIDEO DEMO
 ## WebSite
 
 Our project's Website :
-https://loickballoy.github.io/
+https://loickballoy.github.io/JavaultWebsite/
