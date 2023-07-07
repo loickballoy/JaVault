@@ -20,7 +20,7 @@ The objective of this project is to develop a secure integrated development envi
 
 ## Launching
 
-To run the project, once you have cloned the projext, go to ping_jar2 and run the command:
+To run the project, once you have cloned or downloaded the source code for the project, go to ping_jar2 and run the command:
 
 ```
 java --module-path .\openjfx-20.0.1_windows-x64_bin-sdk\javafx-sdk-20.0.1\lib --add-modules javafx.controls,javafx.fxml -jar ping.jar
