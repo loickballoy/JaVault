@@ -1,5 +1,6 @@
 package fr.epita.assistants.myide.front;
 
+import fr.epita.assistants.Interface;
 import fr.epita.assistants.myide.domain.entity.Feature;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
@@ -22,11 +23,12 @@ public class MyMenuItem {
         this.menuItem = new MenuItem(name);
         var featureEffective = Interface.project.getFeature(feature);
         if (featureEffective.isEmpty())
-            throw new RuntimeException("MenuItem:" + name + " feature is Invalid and not have been Find");  
+            return;
+            //throw new RuntimeException("MenuItem:" + name + " feature is Invalid and not have been Find");
         contextMenu.getItems().add(menuItem);
         menuItem.setOnAction(event -> {
             System.err.println(Interface.project.getRootNode().getPath());
-            System.err.println("heyeyyy");
+            //System.err.println("heyeyyy");
             if (featureEffective.get().execute(Interface.project, params).isSuccess())
                 System.out.println(name + ": It Work");
             else

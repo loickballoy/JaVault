@@ -1,6 +1,6 @@
 package fr.epita.assistants.utils.front;
 
-import fr.epita.assistants.myide.front.Interface;
+import fr.epita.assistants.Interface;
 import javafx.scene.control.ListView;
 import javafx.scene.control.ScrollBar;
 import javafx.scene.paint.Color;

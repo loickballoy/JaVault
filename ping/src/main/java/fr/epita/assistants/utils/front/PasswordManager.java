@@ -1,6 +1,6 @@
 package fr.epita.assistants.utils.front;
 
-import fr.epita.assistants.myide.front.Interface;
+import fr.epita.assistants.Interface;
 import javafx.scene.control.TextInputDialog;
 
 import java.io.BufferedWriter;
@@ -66,9 +66,9 @@ public class PasswordManager {
 
         if (folder.exists() && folder.isDirectory()) {
             pointVault = Paths.get(folderPath);
-            System.out.println("Folder exist");
+            //System.out.println("Folder exist");
         } else {
-            System.err.println("Folder does not exist !");
+            System.err.println("the Folder does not exist !");
         }
     }
 
@@ -88,7 +88,7 @@ public class PasswordManager {
         projectmdp = Arrays.stream(FileManager.readFileContent(filePath).split("\n")).findFirst().get();
         if(projectmdp.isEmpty() || projectmdp.isBlank())
             projectmdp = FileManager.readFileContent(filePath);
-        System.err.println(projectmdp);
+        //System.err.println(projectmdp);
     }
 
     private static void searchKey()

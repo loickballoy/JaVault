@@ -11,17 +11,20 @@ The objective of this project is to develop a secure integrated development envi
 > * [JaVault](#javault)
 >   * [About / Synopsis](#about--synopsis)
 >   * [Table of contents](#table-of-contents)
->   * [Installation](#installation)
+>   * [Launching](#launching)
 >   * [Demo](#demo)
 >     * [Features](#features)
 >     * [Screenshots](#screenshots)
 >   * [Resources (Documentation and other links)](#resources-documentation-and-other-links)
 >   * [WebSite](#website)
 
-## Installation
+## Launching
 
-To install and run our project, please find the download link on our website:
-https://loickballoy.github.io/JavaultWebsite/
+To run the project, once you have cloned the projext, go to ping_jar2 and run the command:
+
+```
+java --module-path .\openjfx-20.0.1_windows-x64_bin-sdk\javafx-sdk-20.0.1\lib --add-modules javafx.controls,javafx.fxml -jar ping.jar
+```
 
 ## Demo
 

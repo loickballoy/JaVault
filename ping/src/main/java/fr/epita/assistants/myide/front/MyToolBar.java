@@ -1,6 +1,6 @@
 package fr.epita.assistants.myide.front;
 
-import fr.epita.assistants.myide.domain.entity.Feature;
+import fr.epita.assistants.Interface;
 import fr.epita.assistants.myide.domain.entity.Mandatory;
 import fr.epita.assistants.utils.front.CryptoManager;
 import fr.epita.assistants.utils.front.PasswordManager;
@@ -18,9 +18,6 @@ import javafx.scene.shape.Rectangle;
 import javafx.stage.*;
 import org.owasp.dependencycheck.exception.ExceptionCollection;
 
-import fr.epita.assistants.myide.domain.entity.maven.*;
-import fr.epita.assistants.myide.domain.entity.git.*;
-
 import javax.tools.JavaCompiler;
 import javax.tools.ToolProvider;
 import java.io.File;
@@ -31,11 +28,8 @@ import java.lang.reflect.Method;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.concurrent.CompletableFuture;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import static fr.epita.assistants.myide.domain.entity.Feature.*;
 
 /**
  * This is the MyToolBar class. As the name suggest here we link the backend features, and add the ones needed. These features can be executed through buttons that we define in this class.
@@ -43,6 +37,7 @@ import static fr.epita.assistants.myide.domain.entity.Feature.*;
  * @author loick.balloy@epita.fr remy.decourcelle@epita.fr hazma.ouhmani@epita.fr guillaume.charvolin@epita.fr
  * @version 1.0
  */
+
 public class MyToolBar {
 
     public static ToolBar init(Stage primaryStage, File rootPath) {
@@ -63,31 +58,31 @@ public class MyToolBar {
 
         // Crée les menus contextuels
         ContextMenu gitMenu = new ContextMenu();
-        gitMenu.getItems().add(new MenuItem("Add"));
+        /*gitMenu.getItems().add(new MenuItem("Add"));
         gitMenu.getItems().add(new MenuItem("Commit"));
         gitMenu.getItems().add(new MenuItem("Pull"));
-        gitMenu.getItems().add(new MenuItem("Push"));
-        //new MyMenuItem("Add", gitMenu, Mandatory.Features.Git.ADD, ".");
-        //new MyMenuItem("Commit", gitMenu, Mandatory.Features.Git.COMMIT);
-        //new MyMenuItem("Pull", gitMenu, Mandatory.Features.Git.PULL);
-        //new MyMenuItem("Push", gitMenu, Mandatory.Features.Git.PUSH);
+        gitMenu.getItems().add(new MenuItem("Push"));*/
+        new MyMenuItem("Add", gitMenu, Mandatory.Features.Git.ADD, ".");
+        new MyMenuItem("Commit", gitMenu, Mandatory.Features.Git.COMMIT);
+        new MyMenuItem("Pull", gitMenu, Mandatory.Features.Git.PULL);
+        new MyMenuItem("Push", gitMenu, Mandatory.Features.Git.PUSH);
 
         ContextMenu anyMenu = new ContextMenu();
-        anyMenu.getItems().add(new MenuItem("Cleanup"));
+        /*anyMenu.getItems().add(new MenuItem("Cleanup"));
         anyMenu.getItems().add(new MenuItem("Dist"));
-        anyMenu.getItems().add(new MenuItem("Search"));
+        anyMenu.getItems().add(new MenuItem("Search"));*/
         new MyMenuItem("Cleanup", anyMenu, Mandatory.Features.Any.CLEANUP);
         new MyMenuItem("Dist", anyMenu, Mandatory.Features.Any.DIST);
         new MyMenuItem("Search", anyMenu, Mandatory.Features.Any.SEARCH);
 
         ContextMenu mavenMenu = new ContextMenu();
-        mavenMenu.getItems().add(new MenuItem("Clean"));
+        /*mavenMenu.getItems().add(new MenuItem("Clean"));
         mavenMenu.getItems().add(new MenuItem("Compile"));
         mavenMenu.getItems().add(new MenuItem("Exec"));
         mavenMenu.getItems().add(new MenuItem("Install"));
         mavenMenu.getItems().add(new MenuItem("Package"));
         mavenMenu.getItems().add(new MenuItem("Test"));
-        mavenMenu.getItems().add(new MenuItem("Tree"));
+        mavenMenu.getItems().add(new MenuItem("Tree"));*/
         new MyMenuItem("Tree", mavenMenu, Mandatory.Features.Maven.TREE);
         new MyMenuItem("Test", mavenMenu, Mandatory.Features.Maven.TEST);
         new MyMenuItem("Package", mavenMenu, Mandatory.Features.Maven.PACKAGE);
@@ -156,6 +151,7 @@ public class MyToolBar {
             TreeBuilder.buildTree(selectedDirectory, rootNode);
             Interface.treeview.setRoot(rootNode);
             Interface.treeview.refresh();
+            Interface.treeview.setVisible(true);
             Interface.project = Interface.projectService.load(Paths.get(selectedDirectory.getAbsolutePath()));
             PasswordManager.startVaultProject();
         });

@@ -1,6 +1,6 @@
 package fr.epita.assistants.utils.front;
 
-import fr.epita.assistants.myide.front.Interface;
+import fr.epita.assistants.Interface;
 import javafx.event.Event;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
